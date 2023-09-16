@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/dio_helper.dart';
 
 import '../cubits/app_cubit.dart';
 class NewsLayout extends StatelessWidget {
@@ -8,10 +9,10 @@ class NewsLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-  create: (context) => NewsCubit(),
+  create: (context) => NewsCubit()..getBuisness()..getSports()..getScience(),
   child: BlocConsumer<NewsCubit, NewsStates>(
   listener: (context, state) {
-    // TODO: implement listener
+
   },
   builder: (context, state) {
     var cubit = NewsCubit.get(context);
@@ -24,12 +25,22 @@ class NewsLayout extends StatelessWidget {
               icon: const Icon(Icons.search),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+               NewsCubit.get(context).changeAppMode();
+              },
               icon: const Icon(Icons.brightness_4_outlined),
             ),
+
+           IconButton(
+             onPressed: () {},
+             icon: const Icon(Icons.settings),
+           ),
          ],
         ),
 
+
+
+      body: cubit.screens[cubit.currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: cubit.currentIndex,
         onTap: (index) {
@@ -37,7 +48,6 @@ class NewsLayout extends StatelessWidget {
         },
         items: cubit.bottomItems,
       ),
-      body: cubit.screens[cubit.currentIndex],
     );
   },
 ),
