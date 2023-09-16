@@ -8,6 +8,11 @@ import '../cubits/app_cubit.dart';
 
 //query: country=us&category=business&apiKey=65f7f556ec76449fa7dc7c0069f040ca
 
+ //https://newsapi.org/v2/everything?q=tesla&apiKey=65f7f556ec76449fa7dc7c0069f040ca
+
+
+
+
 
  Widget buildNewsItem(dynamic article,context) {
     return Padding(

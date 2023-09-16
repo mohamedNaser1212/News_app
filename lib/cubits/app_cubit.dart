@@ -129,4 +129,28 @@ void getSports() {
     print(isDark);
 
   }
+
+
+  List<dynamic> Search = [];
+  void getSearch(String value) {
+    Search = [];
+
+      emit(NewsGetSearchLoadinState());
+      DioHelper.getData(url: 'v2/everything',
+        query: {
+
+          'q': value,
+          'apiKey': '65f7f556ec76449fa7dc7c0069f040ca',
+        },
+      ).then((value) {
+        Search = value.data['articles'];
+        print(Search[0]['title']);
+        emit(NewsGetSearchSucessState());
+      }
+      ).catchError((error) {
+        print(error.toString());
+        emit(NewsGetSearchErrorState(error.toString()));
+      });
+
+  }
 }
